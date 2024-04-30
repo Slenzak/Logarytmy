@@ -1,0 +1,14 @@
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\bin\Debug\net6.0\Logarytmy.exe
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\bin\Debug\net6.0\Logarytmy.deps.json
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\bin\Debug\net6.0\Logarytmy.runtimeconfig.json
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\bin\Debug\net6.0\Logarytmy.dll
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\bin\Debug\net6.0\Logarytmy.pdb
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.AssemblyInfoInputs.cache
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.AssemblyInfo.cs
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.csproj.CoreCompileInputs.cache
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.dll
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\refint\Logarytmy.dll
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.pdb
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\Logarytmy.genruntimeconfig.cache
+C:\Users\kubol\source\repos\Logarytmy\Logarytmy\obj\Debug\net6.0\ref\Logarytmy.dll
