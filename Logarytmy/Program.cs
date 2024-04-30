@@ -26,17 +26,20 @@
                         {
                             case 1:
                                 ObliczLogarytm();
+                                Environment.Exit(0);
                                 break;
                             case 2:
                                 ZnajdzX();
+                                Environment.Exit(0);
                                 break;
                             case 3:
                                 ZnajdzX2();
+                                Environment.Exit(0);
                                 break;
                         }
                     break;
                 case 2:
-                    //ObliczCiag();
+                    ObliczCiag();
                     break;
                 case 3:
                     Environment.Exit(0);
@@ -83,7 +86,7 @@
             int endIndex = expression.IndexOf(")", startIndex);
             string logExpr = expression.Substring(startIndex + 4, endIndex - startIndex - 4);
             double argument = double.Parse(logExpr.Replace(".", ","));
-            double result = Math.Log(argument,10);
+            double result = Math.Log(argument);
             expression = expression.Replace($"log({logExpr})", result.ToString().Replace(",", "."));
         }
 
@@ -98,23 +101,45 @@
     }
     static void ZnajdzX()
     {
-        Console.WriteLine("Wpisz równanie logarytmiczne do rozwiązania (np. log_2(x)=3):");
+        Console.WriteLine("Wpisz równanie logarytmiczne do rozwiązania (np. log_2(x)=3 lub log(x)=2):");
         string expression = Console.ReadLine();
 
-        if (!expression.StartsWith("log_") || !expression.Contains("="))
+        expression = expression.Replace(" ", "");
+        expression = expression.ToLower();
+
+        if (!expression.StartsWith("log_") && !expression.StartsWith("log(") || !expression.Contains("="))
         {
-            Console.WriteLine("Błąd: Nieprawidłowy format!");
+            Console.WriteLine("Błąd: Nieprawidłowy format równania logarytmicznego!");
             return;
         }
-        expression = expression.Replace(" ", "");
-        int baseEndIndex = expression.IndexOf("(");
-        int valueEndIndex = expression.IndexOf(")");
-        int equalIndex = expression.IndexOf("=");
-        double logBase = double.Parse(expression.Substring(4, baseEndIndex - 4));
-        double resultValue = double.Parse(expression.Substring(equalIndex + 1));
-        double x = Math.Pow(logBase, resultValue);
 
-        Console.WriteLine($"Wartość x to: {x}");
+        double result;
+        if (expression.StartsWith("log("))
+        {
+            if (double.TryParse(expression.Substring(expression.IndexOf("=") + 1), out result))
+            {
+                double x = Math.Pow(Math.E,result);
+                Console.WriteLine($"Wartość x to: {x}");
+            }
+            else
+            {
+                Console.WriteLine("Błąd: Nieprawidłowa wartość liczby!");
+            }
+        }
+        else
+        {
+            string baseString = expression.Substring(4, expression.IndexOf("(") - 4);
+            double logBase;
+            if (double.TryParse(baseString, out logBase) && double.TryParse(expression.Substring(expression.IndexOf("=") + 1), out result))
+            {
+                double x = Math.Pow(logBase, result);
+                Console.WriteLine($"Wartość x to: {x}");
+            }
+            else
+            {
+                Console.WriteLine("Błąd: Nieprawidłowa wartość podstawy logarytmu!");
+            }
+        }
     }
     static void ZnajdzX2()
     {
@@ -139,6 +164,111 @@
         else
         {
             Console.WriteLine("Błąd: Wprowadzono nieprawidłowe wartości!");
+        }
+    }
+    static void ObliczCiag()
+    {
+        Console.WriteLine("Podaj długość ciągu:");
+        int n = int.Parse(Console.ReadLine());
+        double[] elements = new double[n];
+        for (int i = 0; i < n; i++)
+        {
+            Console.WriteLine($"Podaj {i + 1} element ciągu:");
+            elements[i] = double.Parse(Console.ReadLine());
+        }
+        double[] differences = new double[n - 1];
+        for (int i = 0; i < n - 1; i++)
+        {
+            differences[i] = elements[i + 1] - elements[i];
+        }
+        bool isArithmetic = true;
+        bool isGeometric = true;
+        for (int i = 1; i < n - 1; i++)
+        {
+            if (differences[i] != differences[i - 1])
+            {
+                isArithmetic = false;
+                break;
+            }
+        }
+        double ratio = elements[1] / elements[0];
+        for (int i = 1; i < n - 1; i++)
+        {
+            if (elements[i + 1] / elements[i] != ratio)
+            {
+                isGeometric = false;
+                break;
+            }
+        }
+        int czyrosnie=0;
+        int sprawdzacz = 0;
+        for (int i = 0; i< n-1; i++)
+        {
+            if (elements[i + 1] > elements[i])
+            {
+                czyrosnie = 1;
+                if(sprawdzacz == 2)
+                {
+                    Console.WriteLine("Ciąg jest zmienny");
+                    czyrosnie = 0;
+                    break;
+                }
+                sprawdzacz = 1;  
+            }else if (elements[i+1] < elements[i])
+            {
+                czyrosnie = 2;
+                if(sprawdzacz == 1)
+                {
+                    Console.WriteLine("Ciąg jest zmienny");
+                    czyrosnie = 0;
+                    break;
+                }
+                sprawdzacz=2;
+            }
+            else
+            {
+                Console.WriteLine("Ciag jest stały");
+                break;
+            }
+        }
+        if(czyrosnie == 1)
+        {
+            Console.WriteLine("Ciag rośnie");
+        }else if(czyrosnie == 2)
+        {
+            Console.WriteLine("Ciąg Maleje");
+        }
+        if (isArithmetic)
+        {
+            Console.WriteLine("Ciąg arytmetyczny");
+        }
+        else if (isGeometric)
+        {
+            Console.WriteLine("Ciąg geometryczny");
+        }
+        else
+        {
+            Console.WriteLine("Inny ciąg");
+        }
+        Console.WriteLine("Podaj wartość n:");
+        int nth = int.Parse(Console.ReadLine());
+        if (isArithmetic)
+        {
+            double a = elements[0];
+            double d = differences[0];
+            double nthElement = a + (nth - 1) * d;
+            Console.WriteLine($"Wartość {nth} elementu ciągu wynosi: {nthElement}");
+        }
+        else if (isGeometric)
+        {
+            double a = elements[0];
+            double r = ratio;
+            double nthElement = a * Math.Pow(r, nth - 1);
+            Console.WriteLine($"Wartość {nth} elementu ciągu wynosi: {nthElement}");
+        }
+        else
+        {
+            Console.WriteLine("Nie można obliczyć wartości elementu ciągu dla innego typu ciągu.");
         }
     }
 }
